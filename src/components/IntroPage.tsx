@@ -1,8 +1,8 @@
 'use client';
 
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function IntroPage() {
@@ -10,6 +10,16 @@ export default function IntroPage() {
   const { setLanguage } = useLanguage();
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<'en' | 'tr' | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const handleEnter = () => {
     if (selectedLanguage) {
@@ -20,23 +30,17 @@ export default function IntroPage() {
 
   const bracketVariants: Variants = {
     initial: { 
-      x: 0, 
       opacity: 0,
-      rotate: -180,
-      scale: 0
+      scale: 0,
+      rotate: -180
     },
     animate: { 
-      x: 0, 
       opacity: 1,
-      rotate: 0,
       scale: 1,
+      rotate: 0,
       transition: {
-        duration: 1.5,
-        ease: "easeOut",
-        rotate: {
-          duration: 1.5,
-          ease: "easeOut"
-        }
+        duration: 1.2,
+        ease: "easeOut"
       }
     },
     expand: (custom: number) => ({
@@ -44,18 +48,18 @@ export default function IntroPage() {
       transition: {
         duration: 1,
         ease: "easeOut",
-        delay: 1.5
+        delay: 1.2
       }
     })
   };
 
-  const containerVariants: Variants = {
+  const textContainerVariants: Variants = {
     initial: { opacity: 1 },
     animate: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
-        delayChildren: 2.3
+        staggerChildren: 0.04,
+        delayChildren: 2
       }
     }
   };
@@ -63,13 +67,16 @@ export default function IntroPage() {
   const letterVariants: Variants = {
     initial: { 
       opacity: 0,
-      x: -20
+      y: 20,
+      filter: 'blur(10px)'
     },
     animate: {
       opacity: 1,
-      x: 0,
+      y: 0,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.3
+        duration: 0.4,
+        ease: "easeOut"
       }
     }
   };
@@ -77,16 +84,16 @@ export default function IntroPage() {
   const languageVariants: Variants = {
     initial: { 
       opacity: 0,
-      y: 20,
-      scale: 0.8
+      y: 30,
+      scale: 0.9
     },
     animate: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
-        delay: 3.8,
+        duration: 0.6,
+        delay: 3.5,
         ease: "easeOut"
       }
     }
@@ -96,46 +103,59 @@ export default function IntroPage() {
   const turkishText = "Portfolyoma hoşgeldiniz";
 
   return (
-    <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
-      {/* Background Animation */}
+    <div className="relative min-h-screen bg-neutral-900 flex items-center justify-center overflow-hidden">
+      {/* Interactive Background */}
       <motion.div
-        className="absolute inset-0 overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }}
-        transition={{ duration: 2 }}
-      >
-        <motion.div
-          className="absolute w-[800px] h-[800px] bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-3xl"
-          style={{ top: '50%', left: '50%', x: '-50%', y: '-50%' }}
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </motion.div>
+        className="absolute inset-0"
+        animate={{
+          background: [
+            'radial-gradient(600px at 0% 0%, rgba(29, 78, 216, 0.15) 0%, transparent 80%)',
+            'radial-gradient(600px at 100% 0%, rgba(147, 51, 234, 0.15) 0%, transparent 80%)',
+            'radial-gradient(600px at 100% 100%, rgba(29, 78, 216, 0.15) 0%, transparent 80%)',
+            'radial-gradient(600px at 0% 100%, rgba(147, 51, 234, 0.15) 0%, transparent 80%)',
+            'radial-gradient(600px at 0% 0%, rgba(29, 78, 216, 0.15) 0%, transparent 80%)',
+          ]
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
 
-      <div className="relative">
+      {/* Mouse Follow Effect */}
+      <motion.div
+        className="absolute w-[500px] h-[500px] bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none"
+        animate={{
+          x: mousePosition.x - 250,
+          y: mousePosition.y - 250,
+        }}
+        transition={{
+          type: "spring",
+          damping: 30,
+          stiffness: 200,
+          mass: 0.5,
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10">
         <div className="flex items-center justify-center">
           {/* Left Bracket */}
           <motion.div
-            custom={-150}
+            custom={-160}
             variants={bracketVariants}
             initial="initial"
             animate={["animate", "expand"]}
-            className="text-7xl font-light text-blue-500"
+            className="text-8xl font-extralight text-blue-500/80"
           >
             {"{"}
           </motion.div>
 
           {/* Welcome Text */}
-          <div className="mx-8 flex flex-col items-center gap-4">
+          <div className="mx-12 flex flex-col items-center gap-6">
             <motion.div
-              variants={containerVariants}
+              variants={textContainerVariants}
               initial="initial"
               animate="animate"
               className="flex overflow-hidden"
@@ -144,7 +164,7 @@ export default function IntroPage() {
                 <motion.span
                   key={index}
                   variants={letterVariants}
-                  className="text-2xl font-light text-white"
+                  className="text-3xl font-light text-white/90"
                 >
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
@@ -152,7 +172,7 @@ export default function IntroPage() {
             </motion.div>
 
             <motion.div
-              variants={containerVariants}
+              variants={textContainerVariants}
               initial="initial"
               animate="animate"
               className="flex overflow-hidden"
@@ -161,7 +181,7 @@ export default function IntroPage() {
                 <motion.span
                   key={index}
                   variants={letterVariants}
-                  className="text-xl font-light text-neutral-400"
+                  className="text-2xl font-light text-neutral-400/80"
                 >
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
@@ -171,11 +191,11 @@ export default function IntroPage() {
 
           {/* Right Bracket */}
           <motion.div
-            custom={150}
+            custom={160}
             variants={bracketVariants}
             initial="initial"
             animate={["animate", "expand"]}
-            className="text-7xl font-light text-purple-500"
+            className="text-8xl font-extralight text-purple-500/80"
             onAnimationComplete={() => setIsAnimationComplete(true)}
           >
             {"}"}
@@ -183,64 +203,76 @@ export default function IntroPage() {
         </div>
 
         {/* Language Selection */}
-        {isAnimationComplete && (
-          <motion.div
-            variants={languageVariants}
-            initial="initial"
-            animate="animate"
-            className="mt-16 flex flex-col items-center gap-6"
-          >
-            <div className="flex items-center gap-4">
-              <motion.button
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedLanguage('en')}
-                className={`px-8 py-3 rounded-lg font-medium transition-all duration-300 ${
-                  selectedLanguage === 'en'
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                    : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-                }`}
-              >
-                English
-              </motion.button>
-              <motion.button
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(139, 92, 246, 0.5)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedLanguage('tr')}
-                className={`px-8 py-3 rounded-lg font-medium transition-all duration-300 ${
-                  selectedLanguage === 'tr'
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                    : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-                }`}
-              >
-                Türkçe
-              </motion.button>
-            </div>
-
-            <motion.button
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(99, 102, 241, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleEnter}
-              className={`px-16 py-4 rounded-lg font-medium transition-all duration-300 ${
-                selectedLanguage
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg hover:shadow-xl'
-                  : 'bg-neutral-700 text-neutral-500 cursor-not-allowed'
-              }`}
-              disabled={!selectedLanguage}
+        <AnimatePresence>
+          {isAnimationComplete && (
+            <motion.div
+              variants={languageVariants}
+              initial="initial"
+              animate="animate"
+              className="mt-20 flex flex-col items-center gap-8"
             >
-              {selectedLanguage === 'tr' ? 'GİRİŞ' : 'ENTER'}
-            </motion.button>
-          </motion.div>
-        )}
+              <div className="flex items-center gap-6">
+                <motion.button
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 30px rgba(59, 130, 246, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setSelectedLanguage('en')}
+                  className={`px-10 py-3.5 rounded-xl font-medium transition-all duration-500 ${
+                    selectedLanguage === 'en'
+                      ? 'bg-gradient-to-r from-blue-500/90 to-purple-500/90 text-white shadow-lg'
+                      : 'bg-white/5 text-neutral-300 hover:bg-white/10 backdrop-blur-sm border border-white/10'
+                  }`}
+                >
+                  English
+                </motion.button>
+                <motion.button
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 30px rgba(139, 92, 246, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setSelectedLanguage('tr')}
+                  className={`px-10 py-3.5 rounded-xl font-medium transition-all duration-500 ${
+                    selectedLanguage === 'tr'
+                      ? 'bg-gradient-to-r from-blue-500/90 to-purple-500/90 text-white shadow-lg'
+                      : 'bg-white/5 text-neutral-300 hover:bg-white/10 backdrop-blur-sm border border-white/10'
+                  }`}
+                >
+                  Türkçe
+                </motion.button>
+              </div>
+
+              <motion.button
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 40px rgba(99, 102, 241, 0.3)"
+                }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleEnter}
+                className={`relative px-20 py-4 rounded-xl font-medium transition-all duration-500 overflow-hidden ${
+                  selectedLanguage
+                    ? 'bg-gradient-to-r from-blue-500/90 to-purple-500/90 text-white shadow-lg hover:shadow-xl'
+                    : 'bg-neutral-800/50 text-neutral-500 cursor-not-allowed backdrop-blur-sm'
+                }`}
+                disabled={!selectedLanguage}
+              >
+                <span className="relative z-10">
+                  {selectedLanguage === 'tr' ? 'GİRİŞ' : 'ENTER'}
+                </span>
+                {selectedLanguage && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-purple-600/90"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                )}
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
