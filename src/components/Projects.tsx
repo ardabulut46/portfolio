@@ -20,15 +20,15 @@ interface ProjectSectionProps {
 const projects: { frontend: Project[]; backend: Project[] } = {
   frontend: [
     {
-      title: 'Inventory Management Frontend',
-      description: 'Modern React-based frontend for inventory management system with real-time updates and responsive design.',
+      title: 'projects.inventory.frontend.title',
+      description: 'projects.inventory.frontend.description',
       image: '/images/projects/inventory-management-frontend.png',
       tags: ['React', 'Javascript'],
       link: 'https://github.com/ardabulut46/InventoryManagement---Frontend',
     },
     {
-      title: 'Portfolio Website',
-      description: 'A modern, responsive portfolio website built with Next.js and Tailwind CSS.',
+      title: 'projects.portfolio.title',
+      description: 'projects.portfolio.description',
       image: '/images/projects/portfolio.png',
       tags: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
       link: '#',
@@ -36,15 +36,15 @@ const projects: { frontend: Project[]; backend: Project[] } = {
   ],
   backend: [
     {
-      title: 'Inventory Management Backend',
-      description: 'Robust .NET-based backend system with comprehensive API endpoints and secure authentication.',
+      title: 'projects.inventory.backend.title',
+      description: 'projects.inventory.backend.description',
       image: '/images/projects/inventory-management-backend.jpg',
       tags: ['.NET', 'C#', 'SQL Server', 'REST API'],
       link: 'https://github.com/ardabulut46/InventoryManagement--Backend',
     },
     {
-      title: 'Library Management API',
-      description: 'Feature-rich library management system built with .NET, featuring book tracking and user management.',
+      title: 'projects.library.title',
+      description: 'projects.library.description',
       image: '/images/projects/library-api.jpg',
       tags: ['.NET', 'C#', 'Entity Framework', 'JWT Auth'],
       link: 'https://github.com/ardabulut46/LibraryAPI-',
@@ -114,10 +114,10 @@ export default function Projects() {
 
             <div className="p-8">
               <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-300 text-transparent bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300">
-                {project.title}
+                {t(project.title)}
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-6 leading-relaxed">
-                {project.description}
+                {t(project.description)}
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {project.tags.map((tag) => (

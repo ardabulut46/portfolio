@@ -31,6 +31,14 @@ const translations = {
     'projects.frontend': 'Frontend Development',
     'projects.backend': 'Backend Development',
     'projects.viewProject': 'View Project',
+    'projects.inventory.frontend.title': 'Inventory Management Frontend',
+    'projects.inventory.frontend.description': 'Modern React-based frontend for inventory management system with real-time updates and responsive design.',
+    'projects.portfolio.title': 'Portfolio Website',
+    'projects.portfolio.description': 'A modern, responsive portfolio website built with Next.js and Tailwind CSS.',
+    'projects.inventory.backend.title': 'Inventory Management Backend',
+    'projects.inventory.backend.description': 'Robust .NET-based backend system with comprehensive API endpoints and secure authentication.',
+    'projects.library.title': 'Library Management API',
+    'projects.library.description': 'Feature-rich library management system built with .NET, featuring book tracking and user management.',
 
     // Contact Section
     'contact.title': 'Get in Touch',
@@ -58,6 +66,14 @@ const translations = {
     'projects.frontend': 'Frontend Geliştirme',
     'projects.backend': 'Backend Geliştirme',
     'projects.viewProject': 'Projeyi Gör',
+    'projects.inventory.frontend.title': 'Envanter Yönetimi Frontend',
+    'projects.inventory.frontend.description': 'Gerçek zamanlı güncellemeler ve duyarlı tasarım ile modern React tabanlı envanter yönetim sistemi.',
+    'projects.portfolio.title': 'Portfolyo Web Sitesi',
+    'projects.portfolio.description': 'Next.js ve Tailwind CSS ile oluşturulmuş modern ve duyarlı portfolyo web sitesi.',
+    'projects.inventory.backend.title': 'Envanter Yönetimi Backend',
+    'projects.inventory.backend.description': 'Kapsamlı API uç noktaları ve güvenli kimlik doğrulama ile sağlam .NET tabanlı backend sistemi.',
+    'projects.library.title': 'Kütüphane Yönetim API',
+    'projects.library.description': 'Kitap takibi ve kullanıcı yönetimi özelliklerine sahip, .NET ile oluşturulmuş zengin özellikli kütüphane yönetim sistemi.',
 
     // Contact Section
     'contact.title': 'İletişime Geç',

@@ -9,7 +9,7 @@ import { useLanguage } from '@/context/LanguageContext';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const menuItems = [
     { href: '#home', label: 'Home' },
@@ -77,24 +77,19 @@ export default function Navbar() {
                   e.preventDefault();
                   handleMenuClick(item.href);
                 }}
-                className={`relative hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors ${
-                  activeSection === item.href.substring(1) ? 'text-blue-500 dark:text-blue-400' : ''
+                className={`relative text-sm font-medium transition-colors duration-300 ${
+                  activeSection === item.href.substring(1)
+                    ? 'text-blue-500 dark:text-blue-400'
+                    : 'hover:text-neutral-600 dark:hover:text-neutral-300'
                 }`}
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {item.label}
-                {activeSection === item.href.substring(1) && (
-                  <motion.span
-                    layoutId="activeSection"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400"
-                    initial={false}
-                  />
-                )}
+                {t(item.label)}
               </motion.a>
             ))}
             <motion.a
-              href="/cv.pdf"
+              href={language === 'tr' ? '/cv-tr.pdf' : '/cv.pdf'}
               download
               className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 overflow-hidden"
               whileHover={{ scale: 1.05 }}
@@ -155,7 +150,7 @@ export default function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="/cv.pdf"
+              href={language === 'tr' ? '/cv-tr.pdf' : '/cv.pdf'}
               download
               className="group flex items-center gap-2 py-2 transition-colors duration-300"
               whileHover={{ x: 10 }}

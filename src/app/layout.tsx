@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geist.variable} font-sans bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50 transition-colors duration-300`}
+        className={`${geist.variable} font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white transition-colors duration-300`}
       >
         <LanguageProvider>
           <NavbarWrapper />

@@ -12,7 +12,7 @@ const skills = {
 };
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section id="about" className="py-32 relative overflow-hidden">
@@ -88,7 +88,7 @@ export default function About() {
                 </div>
 
                 <motion.a
-                  href="/cv.pdf"
+                  href={language === 'tr' ? '/cv-tr.pdf' : '/cv.pdf'}
                   download
                   className="group inline-flex items-center gap-3 mt-10 relative"
                   whileHover={{ scale: 1.02 }}
