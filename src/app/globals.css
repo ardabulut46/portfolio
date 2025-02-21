@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #1d1132;
+}
+
 html {
   scroll-behavior: smooth;
+  background-color: var(--background);
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--background) !important;
-}
-
-/* Added to enforce dark purple background regardless of system color scheme */
-:root {
-  --background: #1d1132;
+  background-color: var(--background);
 }

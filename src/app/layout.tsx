@@ -21,9 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth bg-[#1d1132]">
       <body
-        className={`${geist.variable} font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white transition-colors duration-300`}
+        className={`${geist.variable} font-sans bg-[#1d1132] text-white`}
       >
         <LanguageProvider>
           <NavbarWrapper />
