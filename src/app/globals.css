@@ -8,4 +8,10 @@ html {
 
 body {
   min-height: 100vh;
+  background-color: var(--background) !important;
+}
+
+/* Added to enforce dark purple background regardless of system color scheme */
+:root {
+  --background: #1d1132;
 }
