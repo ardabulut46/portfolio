@@ -4,14 +4,34 @@
 
 :root {
   --background: #1d1132;
+  color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--background);
+  background-color: #1d1132 !important;
+  color-scheme: dark;
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--background);
+  background-color: #1d1132 !important;
+  color-scheme: dark;
+}
+
+/* Ensure dark theme colors are always applied regardless of system preferences */
+.dark {
+  --background: #1d1132;
+}
+
+/* Override any light mode styles */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #1d1132;
+    color-scheme: dark;
+  }
+  
+  html, body {
+    background-color: #1d1132 !important;
+  }
 }

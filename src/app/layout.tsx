@@ -21,9 +21,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth bg-[#1d1132]">
+    <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            // Force dark mode
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.backgroundColor = '#1d1132';
+            document.documentElement.style.setProperty('--background', '#1d1132');
+          `
+        }} />
+      </head>
       <body
         className={`${geist.variable} font-sans bg-[#1d1132] text-white`}
+        style={{ backgroundColor: '#1d1132' }}
       >
         <LanguageProvider>
           <NavbarWrapper />
